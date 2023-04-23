@@ -26,4 +26,27 @@ router.get('/books',async(req, res)=>{
     }
 })
 
+router.get('/books/:id',async(req, res)=>{
+    try {
+        const particularBook= await addBookModel.findOne({_id:req.params.id})
+        return res.status(200).json({
+            status:"Success",
+            book:particularBook
+        })
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+})
+
+router.delete('/books/:id',async(req, res)=>{
+    try {
+        const particularBook= await addBookModel.findOneAndDelete({_id:req.params.id})
+        return res.status(200).json({
+            status:"Success",
+        })
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+})
+
 module.exports= router
