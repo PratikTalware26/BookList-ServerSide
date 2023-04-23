@@ -38,6 +38,17 @@ router.get('/books/:id',async(req, res)=>{
     }
 })
 
+router.patch('/books/:id',async(req, res)=>{
+    try {
+        const particularBook= await addBookModel.findOneAndUpdate({_id:req.params.id},req.body)
+        return res.status(200).json({
+            status:"Success",
+        })
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+})
+
 router.delete('/books/:id',async(req, res)=>{
     try {
         const particularBook= await addBookModel.findOneAndDelete({_id:req.params.id})
